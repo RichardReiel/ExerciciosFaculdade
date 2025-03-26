@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #000000;
+    color: white;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.card {
+    background-color: #0011ff;
+    padding: 10px;
+    border-radius: 10px;
+    width: 150px;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.card:hover{
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 0 20px rgba(255, 187, 0, 1);
+}
+
+img {
+    border-radius: 10px;
+    width: 100%;
+}
+
+
+.pagination{
+    margin: 20px;
+}
+
+button{
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #0011ff;
+    color: black;
+}
+
+button:disabled{
+    background-color:  #ccc;
+    cursor: not-allowed;
+}

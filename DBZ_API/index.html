@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <title>Dragon Ball API</title>
+</head>
+<body>
+    <h1>Dragon Ball API</h1>
+    <div class="container" id="character-container">
+
+    </div>
+
+    <div class="pagination">
+        <button id="prev">Anterior</button>
+        <button id="next">Próximo</button>
+    </div>
+
+    <script>
+        let currentPage =1;
+        const container = document.getElementById("character-container");
+        const prevButton = document.getElementById("prev");
+        const nextButton = document.getElementById("next");
+
+
+
+
+        async function getCharacters(page){
+            try{
+                container.innerHTML = "Loading...";
+                const response = await fetch(`https://dragonball-api.com/api/characters?page=${page}&limit=5`)
+                const data = await response.json();
+                container.innerHTML = "";
+                console.log(data);data.items.forEach(character => {
+                    const card = document.createElement("div")
+                    card.className = "card";
+                    card.innerHTML = `
+                        <img src="${character.image}" alt="${character.name}">
+                        <p>${character.race}</p>
+                    `;
+
+                    card.addEventListener("click", () => {
+                        window.location.href = `character.html?id=${character.id}`
+                    })
+
+                    container.appendChild(card);
+                })
+            } catch(error){
+                console.log("Erro ao carregar personagens", error);
+                container.innerHTML = "Erro ao carregar personagens"
+            }
+        }
+
+
+        prevButton.addEventListener("click", () => {
+            if (currentPage > 1){
+                currentPage -= 1;
+                getCharacters(currentPage);
+            }
+        });
+
+
+        nextButton.addEventListener("click", () =>{
+            currentPage++;
+            getCharacters(currentPage);
+        })
+                document.addEventListener("DOMContentLoaded", () => getCharacters(currentPage));
+
+
+
+    </script>
+</body>
+</html>
